@@ -1,0 +1,16 @@
+.note-details-toolbar {
+    padding: 52px 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.note-details-toolbar__actions {
+    display: flex;
+    gap: 13px;
+}
+
+.note-details-toolbar svg {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}

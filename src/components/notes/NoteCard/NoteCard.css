@@ -1,0 +1,20 @@
+.note-card {
+    width: 200px;
+    height: 200px;
+
+    background-color: #FDFDFD;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+
+    border-radius: 10px;
+    border: 3px solid transparent;
+
+    padding: 20px 22px 17px 16px;
+
+    cursor: pointer;
+
+    transition: border 300ms;
+}
+
+.note-card:hover {
+    border: 3px solid #B90445;
+}
