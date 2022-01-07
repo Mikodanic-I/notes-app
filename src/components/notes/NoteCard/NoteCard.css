@@ -8,11 +8,10 @@
     border-radius: 10px;
     border: 3px solid transparent;
 
-    padding: 20px 22px 17px 16px;
-
     cursor: pointer;
 
     transition: border 300ms;
+    overflow: hidden;
 }
 
 .note-card:hover {

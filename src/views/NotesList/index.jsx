@@ -11,9 +11,9 @@ function NotesList() {
         '\n' +
         '\n' +
         'Shopping list:\n' +
-        '  • apples\n' +
-        '  • oranges\n' +
-        '  • toilet paper\n'
+        '  - apples\n' +
+        '  - oranges\n' +
+        '  - toilet paper\n'
 
     const notesIds = notes.getAllIds()
     const NoteCards = notesIds.map(noteId => <NoteCard key={noteId} noteId={noteId}  />)

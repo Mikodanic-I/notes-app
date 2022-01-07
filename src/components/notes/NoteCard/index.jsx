@@ -8,7 +8,7 @@ function NoteCard({ noteId }) {
 
     return (
         <div className="note-card" onClick={() => notes.edit(note)}>
-            <NoteDetailsContent value={note.content} />
+            <NoteDetailsContent value={note.content} size={0.75} />
         </div>
     )
 }
