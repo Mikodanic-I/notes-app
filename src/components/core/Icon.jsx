@@ -1,14 +1,14 @@
-function Icon({ name }) {
+function Icon({ name, onClick }) {
     // TODO: find a better solution for this
     const icons = {
         'icon-back': require(`../../assets/icons/icon-back.svg`),
-        'icon-delete': require(`../../assets/icons/icon-delete.svg`),
+        'icon-remove': require(`../../assets/icons/icon-remove.svg`),
         'icon-edit': require(`../../assets/icons/icon-edit.svg`),
         'icon-save': require(`../../assets/icons/icon-save.svg`),
     }
 
     const { ReactComponent: IconSvg } = icons[name]
-    return <IconSvg />
+    return <span onClick={onClick}> <IconSvg /> </span>
 }
 
 export default Icon
