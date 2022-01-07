@@ -1,35 +1,34 @@
-import React, {useState, useContext, createContext} from "react";
+import React, { useState, useContext, createContext } from "react";
 
 const NotesContext = createContext(null)
 
 function NotesProvider({ children }) {
     const [notes, setNotes] = useState([])
-    const [currentNote, setCurrentNote] = useState(null)
+    const [openedNote, setOpenedNote] = useState(null)
 
-    const getAll = () => notes
+    const getAllIds = () => notes.map(note => note.id)
+
     const get = (id) => {
         const foundNote = notes.find(note => note.id === id)
 
         return foundNote || null
     }
 
-    const add = (note) => {
+    const add = (initialContent) => {
+        const id = `id-${Date.now()}`
+        const note = { id, content: initialContent }
+
         const updatedNotes = [note, ...notes]
         setNotes(updatedNotes)
+
+        // Temp value so NoteDetails opens edit mode straight away
+        note.fromCreate = true
+        edit(note)
     }
 
-    const edit = (editedNote) => {
-        console.log(editedNote);
-
-        const noteIndex = notes.findIndex(note => note.id === editedNote.id)
-
-        if (noteIndex < 0) return
-
-        const notesCopy = [...notes]
-        const updatedNotes = notesCopy.splice(noteIndex, 1, editedNote)
+    const save = (id, updatedNote) => {
+        const updatedNotes = notes.map(note => note.id === id ? updatedNote : note)
         setNotes(updatedNotes)
-
-        return editedNote
     }
 
     const remove = (id) => {
@@ -37,28 +36,16 @@ function NotesProvider({ children }) {
         setNotes(updatedNotes)
     }
 
-    // OPENING STUFF....
-    const open = (note) => {
-        const content =
-            'This is a note\n' +
-            '\n' +
-            'Subtitle\n' +
-            '\n' +
-            '\n' +
-            'Shopping list:\n' +
-            '  • apples\n' +
-            '  • oranges\n' +
-            '  • toilet paper\n'
-
-        const defaultNote = { id: null, content }
-        setCurrentNote(note || defaultNote)
+    // Open details dialog
+    const edit = (note) => {
+        setOpenedNote(note)
+    }
+    // Close details dialog
+    const cancel = () => {
+        setOpenedNote(null)
     }
 
-    const close = () => {
-        setCurrentNote(null)
-    }
-
-    const value = { getAll, get, add, edit, remove, open, close, currentNote }
+    const value = { getAllIds, get, add, save, remove, edit, cancel, openedNote }
     return (
         <NotesContext.Provider value={value}>
             {children}

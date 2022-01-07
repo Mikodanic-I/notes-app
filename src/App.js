@@ -1,12 +1,14 @@
 import NotesList from "./views/NotesList";
 import NoteDetails from "./components/notes/NoteDetails";
+import {useNotes} from "./contexts/NotesContext";
 
 function App() {
-    const isNoteOpen = true
+    const { openedNote } = useNotes()
+
     return (
         <div className="App">
             <NotesList />
-            {isNoteOpen && <NoteDetails />}
+            {openedNote && <NoteDetails />}
         </div>
     );
 }
