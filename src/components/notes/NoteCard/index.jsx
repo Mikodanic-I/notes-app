@@ -1,9 +1,10 @@
 import './NoteCard.css'
+import NoteDetailsContent from "../NoteContent";
 
 function NoteCard({ value }) {
     return (
         <div className="note-card">
-            {value.content}
+            <NoteDetailsContent value={value.content} />
         </div>
     )
 }

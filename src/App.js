@@ -1,11 +1,11 @@
-import NotesListView from "./views/ListView";
+import NotesList from "./views/NotesList";
 import NoteDetails from "./components/notes/NoteDetails";
 
 function App() {
     const isNoteOpen = true
     return (
         <div className="App">
-            <NotesListView />
+            <NotesList />
             {isNoteOpen && <NoteDetails />}
         </div>
     );
