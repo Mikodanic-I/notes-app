@@ -1,14 +1,23 @@
 import NotesList from "./views/NotesList";
 import NoteDetails from "./components/notes/NoteDetails";
-import {useNotes} from "./contexts/NotesContext";
+import { useState } from "react";
 
 function App() {
-    const { openedNote } = useNotes()
+    const [openedNote, setOpenedNote] = useState(null)
+
+    // Open details dialog
+    const open = (note) => {
+        setOpenedNote(note)
+    }
+    // Close details dialog
+    const close = () => {
+        setOpenedNote(null)
+    }
 
     return (
         <div className="App">
-            <NotesList />
-            {openedNote && <NoteDetails />}
+            <NotesList open={open} />
+            {openedNote && <NoteDetails openedNote={openedNote} close={close}/>}
         </div>
     );
 }
