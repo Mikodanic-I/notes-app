@@ -12,6 +12,7 @@
 
     transition: border 300ms;
     overflow: hidden;
+    padding: 16px;
 }
 
 .note-card:hover {

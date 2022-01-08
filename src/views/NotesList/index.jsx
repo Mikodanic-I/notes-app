@@ -6,14 +6,16 @@ function NotesList({ open }) {
     const notes = useNotes()
     const initialContent =
         'This is a note\n' +
+        '==============\n' +
         '\n' +
         'Subtitle\n' +
+        '--------\n' +
         '\n' +
         '\n' +
         'Shopping list:\n' +
-        '  - apples\n' +
-        '  - oranges\n' +
-        '  - toilet paper\n'
+        '* apples\n' +
+        '* oranges\n' +
+        '* toilet paper\n'
 
     const notesIds = notes.getAllIds()
     const NoteCards = notesIds.map(noteId => <NoteCard key={noteId} noteId={noteId} open={open} />)
