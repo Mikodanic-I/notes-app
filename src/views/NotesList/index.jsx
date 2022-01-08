@@ -2,7 +2,7 @@ import './NotesList.css'
 import NoteCard from "../../components/notes/NoteCard";
 import { useNotes } from "../../contexts/NotesContext";
 
-function NotesList() {
+function NotesList({ open }) {
     const notes = useNotes()
     const initialContent =
         'This is a note\n' +
@@ -16,10 +16,15 @@ function NotesList() {
         '  - toilet paper\n'
 
     const notesIds = notes.getAllIds()
-    const NoteCards = notesIds.map(noteId => <NoteCard key={noteId} noteId={noteId}  />)
+    const NoteCards = notesIds.map(noteId => <NoteCard key={noteId} noteId={noteId} open={open} />)
+
+    const addNote = () => {
+        const newNote = notes.add(initialContent)
+        open({ ...newNote, fromCreate: true })
+    }
     return (
         <div className="notes-list">
-            <div className="notes-list__add-card" onClick={() => notes.add(initialContent)}>+</div>
+            <div className="notes-list__add-card" onClick={addNote}>+</div>
             {NoteCards}
         </div>
     )

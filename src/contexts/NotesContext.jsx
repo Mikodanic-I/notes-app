@@ -1,15 +1,23 @@
-import React, { useState, useContext, createContext } from "react";
+import React, { useContext, createContext } from "react";
 
 const NotesContext = createContext(null)
 
 function NotesProvider({ children }) {
-    const [notes, setNotes] = useState([])
-    const [openedNote, setOpenedNote] = useState(null)
+    const StorageNotes = () => {
+        const notes = localStorage.getItem('notes')
 
-    const getAllIds = () => notes.map(note => note.id)
+        if (!notes) return []
+        return JSON.parse(notes)
+    }
+
+    const setNotes = (notes) => {
+        localStorage.setItem('notes', JSON.stringify(notes))
+    }
+
+    const getAllIds = () => StorageNotes().map(note => note.id)
 
     const get = (id) => {
-        const foundNote = notes.find(note => note.id === id)
+        const foundNote = StorageNotes().find(note => note.id === id)
 
         return foundNote || null
     }
@@ -18,34 +26,25 @@ function NotesProvider({ children }) {
         const id = `id-${Date.now()}`
         const note = { id, content: initialContent }
 
-        const updatedNotes = [note, ...notes]
+        const updatedNotes = [note, ...StorageNotes()]
         setNotes(updatedNotes)
 
-        // Temp value so NoteDetails opens edit mode straight away
-        note.fromCreate = true
-        edit(note)
+        return note
     }
 
     const save = (id, updatedNote) => {
-        const updatedNotes = notes.map(note => note.id === id ? updatedNote : note)
+        const updatedNotes = StorageNotes().map(note => note.id === id ? updatedNote : note)
         setNotes(updatedNotes)
+
+        return { ...updatedNote, id }
     }
 
     const remove = (id) => {
-        const updatedNotes = notes.filter(note => note.id !== id)
+        const updatedNotes = StorageNotes().filter(note => note.id !== id)
         setNotes(updatedNotes)
     }
 
-    // Open details dialog
-    const edit = (note) => {
-        setOpenedNote(note)
-    }
-    // Close details dialog
-    const cancel = () => {
-        setOpenedNote(null)
-    }
-
-    const value = { getAllIds, get, add, save, remove, edit, cancel, openedNote }
+    const value = { getAllIds, get, add, save, remove }
     return (
         <NotesContext.Provider value={value}>
             {children}

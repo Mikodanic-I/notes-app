@@ -2,14 +2,11 @@ import './NoteDetails.css'
 import NoteDetailsToolbar from "../NoteDetailsToolbar";
 import Dialog from "../../core/Dialog";
 import NoteContent from "../NoteContent";
-import { useNotes } from "../../../contexts/NotesContext";
 import { useEffect, useState } from "react";
 
-function NoteDetails() {
+function NoteDetails({ openedNote, close }) {
     const [note, setNote] = useState({})
     const [editable, setEditable] = useState(false)
-
-    const { openedNote } = useNotes()
 
     useEffect(() => {
         if (openedNote.fromCreate) setEditable(true)
@@ -39,7 +36,7 @@ function NoteDetails() {
     return (
         <Dialog>
             <div className="note-details">
-                <NoteDetailsToolbar editable={editable} setEditable={setEditable} note={note} />
+                <NoteDetailsToolbar editable={editable} setEditable={setEditable} note={note} close={close}/>
                 { NotePreview }
             </div>
         </Dialog>
