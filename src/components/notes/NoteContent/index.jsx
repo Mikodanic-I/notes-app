@@ -1,7 +1,7 @@
 import './NoteContent.css'
 import ReactMarkdown from "react-markdown";
 
-function NoteDetailsContent({ value, size=1 }) {
+function NoteContent({ value, size=1 }) {
     const sizeStyling = {
         transform: `scale(${size})`,
         transformOrigin: 'top left',
@@ -14,4 +14,4 @@ function NoteDetailsContent({ value, size=1 }) {
     )
 }
 
-export default NoteDetailsContent
+export default NoteContent
