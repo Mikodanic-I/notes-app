@@ -4,7 +4,7 @@ import Dialog from "../../core/Dialog";
 import NoteContent from "../NoteContent";
 import { useEffect, useState } from "react";
 
-function NoteDetails({ openedNote, close }) {
+function NoteDetails({ openedNote, close, save, remove }) {
     const [note, setNote] = useState({})
     const [editable, setEditable] = useState(false)
 
@@ -37,7 +37,14 @@ function NoteDetails({ openedNote, close }) {
     return (
         <Dialog>
             <div className="note-details">
-                <NoteDetailsToolbar editable={editable} setEditable={setEditable} note={note} close={close}/>
+                <NoteDetailsToolbar
+                    editable={editable}
+                    setEditable={setEditable}
+                    save={save}
+                    remove={remove}
+                    note={note}
+                    close={close}
+                />
                 { NotePreview }
             </div>
         </Dialog>

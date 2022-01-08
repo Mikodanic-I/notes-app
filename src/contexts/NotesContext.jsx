@@ -15,6 +15,7 @@ function NotesProvider({ children }) {
     }
 
     const getAllIds = () => StorageNotes().map(note => note.id)
+    const getAll = () => StorageNotes()
 
     const get = (id) => {
         const foundNote = StorageNotes().find(note => note.id === id)
@@ -44,7 +45,7 @@ function NotesProvider({ children }) {
         setNotes(updatedNotes)
     }
 
-    const value = { getAllIds, get, add, save, remove }
+    const value = { getAllIds, getAll, get, add, save, remove }
     return (
         <NotesContext.Provider value={value}>
             {children}
