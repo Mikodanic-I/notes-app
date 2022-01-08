@@ -24,6 +24,7 @@ function NoteDetails({ openedNote, close }) {
         setNote({ id: note.id, content })
     }
 
+    const contentPreview = <div className="note-details__preview"> <NoteContent value={note.content} /> </div>
     const NotePreview = editable
         ? <textarea
             value={note.content}
@@ -31,7 +32,7 @@ function NoteDetails({ openedNote, close }) {
             rows="40"
             onChange={setNoteContent}
         />
-        : <NoteContent value={note.content} />
+        : contentPreview
 
     return (
         <Dialog>
