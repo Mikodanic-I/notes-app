@@ -1,4 +1,4 @@
-function Icon({ name, onClick }) {
+function Icon({ name, onClick, className }) {
     // TODO: find a better solution for this
     const icons = {
         'icon-back': require(`../../assets/icons/icon-back.svg`),
@@ -8,7 +8,7 @@ function Icon({ name, onClick }) {
     }
 
     const { ReactComponent: IconSvg } = icons[name]
-    return <span onClick={onClick}> <IconSvg /> </span>
+    return <span onClick={onClick} className={className}> <IconSvg /> </span>
 }
 
 export default Icon

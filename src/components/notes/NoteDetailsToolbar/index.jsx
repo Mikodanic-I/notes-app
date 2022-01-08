@@ -20,10 +20,10 @@ function NoteDetailsToolbar({ editable, setEditable, note, close }) {
 
     return (
         <div className="note-details-toolbar">
-            <Icon name="icon-back" onClick={close} />
+            <Icon name="icon-back" className="note-details-toolbar__back" onClick={close} />
             <div className="note-details-toolbar__actions">
-                <Icon name={currentStateIcon} onClick={saveAction} />
-                <Icon name="icon-remove" onClick={removeNote}/>
+                <Icon name={currentStateIcon} className="note-details-toolbar__save" onClick={saveAction} />
+                <Icon name="icon-remove" className="note-details-toolbar__remove" onClick={removeNote}/>
             </div>
         </div>
     )

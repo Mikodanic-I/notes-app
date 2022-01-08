@@ -14,3 +14,18 @@
     width: 24px;
     height: 24px;
 }
+
+.note-details-toolbar__back svg:hover {
+    fill-opacity: 0.8;
+}
+
+.note-details-toolbar__save svg:hover {
+    fill: #0074DA;
+    fill-opacity: 1;
+}
+
+.note-details-toolbar__remove svg:hover {
+    fill: #B90445;
+    fill-opacity: 1;
+}
+
