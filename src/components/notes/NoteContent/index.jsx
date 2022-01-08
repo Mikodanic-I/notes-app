@@ -8,7 +8,7 @@ function NoteDetailsContent({ value, size=1 }) {
         width: `${100 / size}%` // keeps width 100% all the time
     }
     return (
-        <div style={sizeStyling}>
+        <div className="note-content" style={sizeStyling}>
             <ReactMarkdown>{value}</ReactMarkdown>
         </div>
     )
