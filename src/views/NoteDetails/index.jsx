@@ -1,7 +1,7 @@
 import './NoteDetails.css'
-import NoteDetailsToolbar from "../NoteDetailsToolbar";
-import Dialog from "../../core/Dialog";
-import NoteContent from "../NoteContent";
+import NoteDetailsToolbar from "../../components/notes/NoteDetailsToolbar";
+import Dialog from "../../components/core/Dialog";
+import NoteContent from "../../components/notes/NoteContent";
 import { useEffect, useState } from "react";
 
 function NoteDetails({ openedNote, close, save, remove }) {

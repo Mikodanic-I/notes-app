@@ -23,6 +23,10 @@
     fill: #0074DA;
     fill-opacity: 1;
 }
+.note-details-toolbar__edit svg:hover {
+    fill: #da8e00;
+    fill-opacity: 1;
+}
 
 .note-details-toolbar__remove svg:hover {
     fill: #B90445;

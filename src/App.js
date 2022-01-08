@@ -1,7 +1,7 @@
 import NotesList from "./views/NotesList";
-import NoteDetails from "./components/notes/NoteDetails";
+import NoteDetails from "./views/NoteDetails";
 import {useEffect, useState} from "react";
-import {useNotes} from "./contexts/NotesContext";
+import {useNotes} from "./modules/Notes";
 
 function App() {
     const [localNotes, setLocalNotes] = useState([])

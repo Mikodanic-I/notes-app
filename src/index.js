@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { NotesProvider } from "./contexts/NotesContext";
+import { NotesProvider } from "./modules/Notes";
 
 ReactDOM.render(
   <React.StrictMode>

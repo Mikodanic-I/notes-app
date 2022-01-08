@@ -2,12 +2,14 @@ import './NoteDetailsToolbar.css'
 import Icon from "../../core/Icon";
 
 function NoteDetailsToolbar({ editable, setEditable, note, save, remove, close }) {
-    const currentStateIcon = editable ? 'icon-save' : 'icon-edit'
     const saveAction = () => {
-        if (editable) save(note.id, note)
-
-        setEditable(!editable)
+        save(note.id, note)
+        setEditable(false)
     }
+    const SaveIcon = <Icon name="icon-save" className="note-details-toolbar__save" onClick={saveAction}/>
+    const EditIcon = <Icon name="icon-edit"
+                           className="note-details-toolbar__edit"
+                           onClick={() => setEditable(true)} />
 
     return (
         <div className="note-details-toolbar">
@@ -17,10 +19,7 @@ function NoteDetailsToolbar({ editable, setEditable, note, save, remove, close }
                 onClick={close}
             />
             <div className="note-details-toolbar__actions">
-                <Icon
-                    name={currentStateIcon}
-                    className="note-details-toolbar__save"
-                    onClick={saveAction} />
+                {editable ? SaveIcon : EditIcon}
                 <Icon
                     name="icon-remove"
                     className="note-details-toolbar__remove"
