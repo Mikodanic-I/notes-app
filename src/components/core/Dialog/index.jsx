@@ -1,6 +1,8 @@
 import './Dialog.css'
 
-function Dialog({ children }) {
+function Dialog({ opened, children }) {
+    if (!opened) return null
+
     return (
         <div className="dialog">
             <div className="dialog-content">

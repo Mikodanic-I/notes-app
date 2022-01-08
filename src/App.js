@@ -49,7 +49,7 @@ function App() {
                 add={add}
                 open={open}
             />
-            {openedNote && <NoteDetails openedNote={openedNote} save={save} remove={remove} close={close} />}
+            <NoteDetails openedNote={openedNote} save={save} remove={remove} close={close} />
         </div>
     );
 }

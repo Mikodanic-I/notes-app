@@ -9,6 +9,7 @@ function NoteDetails({ openedNote, close, save, remove }) {
     const [editable, setEditable] = useState(false)
 
     useEffect(() => {
+        if (!openedNote) return
         if (openedNote.fromCreate) setEditable(true)
 
         const note = {
@@ -16,7 +17,12 @@ function NoteDetails({ openedNote, close, save, remove }) {
             content: openedNote.content
         }
         setNote(note)
-    }, [])
+
+        return () => {
+            setNote({})
+            setEditable(false)
+        }
+    }, [openedNote])
 
 
     const setNoteContent = (event) => {
@@ -35,7 +41,7 @@ function NoteDetails({ openedNote, close, save, remove }) {
         : contentPreview
 
     return (
-        <Dialog>
+        <Dialog opened={!!openedNote}>
             <div className="note-details">
                 <NoteDetailsToolbar
                     editable={editable}
