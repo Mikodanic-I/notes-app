@@ -15,7 +15,7 @@ function App() {
     }
 
     return (
-        <div className="App">
+        <div>
             <NotesList open={open} />
             {openedNote && <NoteDetails openedNote={openedNote} close={close}/>}
         </div>
