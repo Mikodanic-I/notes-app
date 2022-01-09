@@ -1,6 +1,6 @@
 import './Dialog.css'
 
-function Dialog({ opened, children }) {
+const Dialog = ({ opened, children }) => {
     if (!opened) return null
 
     return (

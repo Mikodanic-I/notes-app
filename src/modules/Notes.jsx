@@ -2,7 +2,7 @@ import React, { useContext, createContext } from "react";
 
 const NotesContext = createContext(null)
 
-function NotesProvider({ children }) {
+const NotesProvider = ({ children }) => {
     const StorageNotes = () => {
         const notes = localStorage.getItem('notes')
 
@@ -53,8 +53,7 @@ function NotesProvider({ children }) {
     )
 }
 
-function useNotes() {
-    return useContext(NotesContext)
-}
+const useNotes = () => useContext(NotesContext)
+
 
 export { NotesProvider, useNotes }

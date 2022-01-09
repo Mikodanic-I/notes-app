@@ -1,9 +1,10 @@
+import React from "react";
+
 import './NotesList.css'
 import NoteCard from "../../components/notes/NoteCard";
 
-import React from "react";
 
-function NotesList({ localNotes, add, open }) {
+const NotesList = ({ localNotes, add, open }) => {
     const initialContent =
         'This is a note\n' +
         '==============\n' +

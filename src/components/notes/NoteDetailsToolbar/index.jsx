@@ -1,7 +1,7 @@
 import './NoteDetailsToolbar.css'
 import Icon from "../../core/Icon";
 
-function NoteDetailsToolbar({ editable, setEditable, note, save, remove, close }) {
+const NoteDetailsToolbar = ({ editable, setEditable, note, save, remove, close }) => {
     const saveAction = () => {
         save(note.id, note)
         setEditable(false)

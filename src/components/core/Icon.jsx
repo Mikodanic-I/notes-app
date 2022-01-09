@@ -1,4 +1,4 @@
-function Icon({ name, onClick, className }) {
+const Icon = ({ name, onClick, className }) => {
     // TODO: find a better solution for this
     const icons = {
         'icon-back': require(`../../assets/icons/icon-back.svg`),

@@ -4,7 +4,7 @@ import Dialog from "../../components/core/Dialog";
 import NoteContent from "../../components/notes/NoteContent";
 import { useEffect, useState } from "react";
 
-function NoteDetails({ openedNote, close, save, remove }) {
+const NoteDetails = ({ openedNote, close, save, remove }) => {
     const [note, setNote] = useState({})
     const [editable, setEditable] = useState(false)
 
