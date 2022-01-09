@@ -1,6 +1,6 @@
 import NotesList from "./views/NotesList";
 import NoteDetails from "./views/NoteDetails";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useNotes} from "./modules/Notes";
 
 function App() {
@@ -13,34 +13,37 @@ function App() {
         setLocalNotes(notes.getAll())
     }, [])
 
-    const open = (note) => {
+    const open = useCallback((note) => {
         setOpenedNote(note)
-    }
-    const close = () => {
-        setOpenedNote(null)
-    }
+    }, [])
 
-    const add = (note) => {
+    const close = useCallback(() => {
+        setOpenedNote(null)
+    }, [])
+
+    const add = useCallback((note) => {
         const addedNote = notes.add(note)
 
         open({ ...addedNote, fromCreate: true })
 
         setLocalNotes([addedNote, ...localNotes ])
-    }
-    const save = (id, updatedNote) => {
+    }, [localNotes])
+
+    const save = useCallback((id, updatedNote) => {
         const savedNote = notes.save(id, updatedNote)
 
         const updatedLocalNotes = localNotes.map(note => note.id === id ? savedNote : note)
         setLocalNotes(updatedLocalNotes)
-    }
-    const remove = (id) => {
+    }, [localNotes])
+
+    const remove = useCallback((id) => {
         notes.remove(id)
 
         const updatedLocalNotes = localNotes.filter(note => note.id !== id)
         setLocalNotes(updatedLocalNotes)
 
         close()
-    }
+    }, [localNotes])
 
     return (
         <div>

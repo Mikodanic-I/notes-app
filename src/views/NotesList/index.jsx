@@ -1,6 +1,8 @@
 import './NotesList.css'
 import NoteCard from "../../components/notes/NoteCard";
 
+import React from "react";
+
 function NotesList({ localNotes, add, open }) {
     const initialContent =
         'This is a note\n' +
@@ -25,4 +27,4 @@ function NotesList({ localNotes, add, open }) {
     )
 }
 
-export default NotesList
+export default React.memo(NotesList)

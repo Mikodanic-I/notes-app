@@ -1,5 +1,6 @@
 import './NoteCard.css'
 import NoteContent from "../NoteContent";
+import React from "react";
 
 function NoteCard({ note, open }) {
     return (
@@ -9,4 +10,4 @@ function NoteCard({ note, open }) {
     )
 }
 
-export default NoteCard
+export default React.memo(NoteCard)
