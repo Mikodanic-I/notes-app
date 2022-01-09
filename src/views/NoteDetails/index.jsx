@@ -41,7 +41,7 @@ const NoteDetails = ({ openedNote, close, save, remove }) => {
         : contentPreview
 
     return (
-        <Dialog opened={!!openedNote}>
+        <Dialog opened={!!openedNote} width="800px">
             <div className="note-details">
                 <NoteDetailsToolbar
                     editable={editable}
