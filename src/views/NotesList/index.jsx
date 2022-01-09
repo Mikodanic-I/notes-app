@@ -3,8 +3,7 @@ import React from "react";
 import './NotesList.css'
 import NoteCard from "../../components/notes/NoteCard";
 
-
-const NotesList = ({ localNotes, add, open }) => {
+const AddButton = ({ add }) => {
     const initialContent =
         'This is a note\n' +
         '==============\n' +
@@ -18,11 +17,15 @@ const NotesList = ({ localNotes, add, open }) => {
         '* oranges\n' +
         '* toilet paper\n'
 
+    return <div className="notes-list__add-card" onClick={() => add(initialContent)}>+</div>
+}
+
+const NotesList = ({ localNotes, add, open }) => {
     const NoteCards = localNotes.map(note => <NoteCard key={note.id} note={note} open={open} />)
 
     return (
         <div className="notes-list">
-            <div className="notes-list__add-card" onClick={() => add(initialContent)}>+</div>
+            <AddButton add={add} />
             {NoteCards}
         </div>
     )

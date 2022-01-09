@@ -10,7 +10,7 @@ const NoteDetails = ({ openedNote, close, save, remove }) => {
 
     useEffect(() => {
         if (!openedNote) return
-        if (openedNote.fromCreate) setEditable(true)
+        if (openedNote.mode === 'edit') setEditable(true)
 
         const note = {
             id: openedNote.id,

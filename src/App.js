@@ -13,8 +13,10 @@ function App() {
         setLocalNotes(notes.getAll())
     }, [])
 
-    const open = useCallback((note) => {
-        setOpenedNote(note)
+    const open = useCallback((id, mode) => {
+        const note = notes.get(id)
+
+        setOpenedNote({ ...note, mode })
     }, [])
 
     const close = useCallback(() => {
@@ -24,7 +26,7 @@ function App() {
     const add = useCallback((note) => {
         const addedNote = notes.add(note)
 
-        open({ ...addedNote, fromCreate: true })
+        open(addedNote.id, 'edit')
 
         setLocalNotes([addedNote, ...localNotes ])
     }, [localNotes])

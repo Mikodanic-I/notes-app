@@ -4,7 +4,7 @@ import React from "react";
 
 const NoteCard = ({ note, open }) => {
     return (
-        <div className="note-card" onClick={() => open(note)}>
+        <div className="note-card" onClick={() => open(note.id, 'view')}>
             <NoteContent value={note.content} size={0.5} />
         </div>
     )
