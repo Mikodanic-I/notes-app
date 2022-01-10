@@ -2,8 +2,9 @@ import React from "react";
 
 import './NotesList.css'
 import NoteCard from "../../components/notes/NoteCard";
+import connectNotes from "../../hoc/connectNotes";
 
-const AddButton = ({ add }) => {
+const AddButton = React.memo(({ add }) => {
     const initialContent =
         'This is a note\n' +
         '==============\n' +
@@ -18,9 +19,9 @@ const AddButton = ({ add }) => {
         '* toilet paper\n'
 
     return <div className="notes-list__add-card" onClick={() => add(initialContent)}>+</div>
-}
+})
 
-const NotesList = ({ localNotes, add, open }) => {
+const NotesList = React.memo(({ localNotes, open, add }) => {
     const NoteCards = localNotes.map(note => <NoteCard key={note.id} note={note} open={open} />)
 
     return (
@@ -29,6 +30,6 @@ const NotesList = ({ localNotes, add, open }) => {
             {NoteCards}
         </div>
     )
-}
+})
 
-export default React.memo(NotesList)
+export default connectNotes(NotesList)

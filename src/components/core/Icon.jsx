@@ -1,5 +1,4 @@
 const Icon = ({ name, ...DOMprops }) => {
-    // TODO: find a better solution for this
     const icons = {
         'icon-back': require(`../../assets/icons/icon-back.svg`),
         'icon-remove': require(`../../assets/icons/icon-remove.svg`),

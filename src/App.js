@@ -1,10 +1,14 @@
 import NotesList from "./views/NotesList";
 import NoteDetails from "./views/NoteDetails";
-import connectNotes from "./hoc/connectNotes";
+import React from "react";
 
 function App() {
-    const NotesContainer = connectNotes(NotesList, NoteDetails)
-    return <NotesContainer />;
+    return (
+        <div>
+            <NotesList />
+            <NoteDetails />
+        </div>
+    )
 }
 
 export default App;

@@ -1,10 +1,13 @@
+import React from 'react'
+
 import './NoteDetails.css'
 import NoteDetailsToolbar from "../../components/notes/NoteDetailsToolbar";
 import Dialog from "../../components/core/Dialog";
 import NoteContent from "../../components/notes/NoteContent";
 import { useEffect, useState } from "react";
+import connectNotes from "../../hoc/connectNotes";
 
-const NoteDetails = ({ openedNote, close, save, remove }) => {
+const NoteDetails = ({ openedNote }) => {
     const [note, setNote] = useState({})
     const [editable, setEditable] = useState(false)
 
@@ -30,15 +33,16 @@ const NoteDetails = ({ openedNote, close, save, remove }) => {
         setNote({ id: note.id, content })
     }
 
-    const contentPreview = <div className="note-details__preview"> <NoteContent value={note.content} /> </div>
-    const NotePreview = editable
+    const WrappedNoteContent = <div className="note-details__preview"> <NoteContent value={note.content} /> </div>
+
+    const NoteDetailsBody = editable
         ? <textarea
             value={note.content}
             className="note-details__text-area"
             rows="40"
             onChange={setNoteContent}
         />
-        : contentPreview
+        : WrappedNoteContent
 
     return (
         <Dialog opened={!!openedNote} width="800px">
@@ -46,15 +50,12 @@ const NoteDetails = ({ openedNote, close, save, remove }) => {
                 <NoteDetailsToolbar
                     editable={editable}
                     setEditable={setEditable}
-                    save={save}
-                    remove={remove}
                     note={note}
-                    close={close}
                 />
-                { NotePreview }
+                { NoteDetailsBody }
             </div>
         </Dialog>
     )
 }
 
-export default NoteDetails
+export default connectNotes(NoteDetails, 'details')

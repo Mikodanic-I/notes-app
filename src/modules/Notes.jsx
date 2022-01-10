@@ -1,50 +1,84 @@
-import React, { useContext, createContext } from "react";
+import React, {useContext, createContext, useReducer, useState, useEffect, useCallback} from "react";
 
 const NotesContext = createContext(null)
 
+const localNotesReducer = (state, { type, payload }) => {
+    switch (type) {
+        case 'add':
+            return [payload, ...state]
+        case 'edit':
+            return state.map(note => note.id === payload.id ? payload : note)
+        case 'remove':
+            return state.filter(note => note.id !== payload)
+        default:
+            return payload
+    }
+}
+
 const NotesProvider = ({ children }) => {
+    const [localNotes, setLocalNotes] = useReducer(localNotesReducer, [])
+    const [openedNote, setOpenedNote] = useState(null)
+
+    useEffect(() => {
+        setLocalNotes({ payload: StorageNotes() })
+    }, [])
+
     const StorageNotes = () => {
         const notes = localStorage.getItem('notes')
 
         if (!notes) return []
         return JSON.parse(notes)
     }
-
-    const setNotes = (notes) => {
+    const setStorageNotes = (notes) => {
         localStorage.setItem('notes', JSON.stringify(notes))
     }
 
-    const getAll = () => StorageNotes()
-
-    const get = (id) => {
+    const get = useCallback((id) => {
         const foundNote = StorageNotes().find(note => note.id === id)
 
         return foundNote || null
-    }
+    }, [])
 
-    const add = (initialContent) => {
+    const add = useCallback((initialContent) => {
         const id = `id-${Date.now()}`
         const note = { id, content: initialContent }
 
         const updatedNotes = [note, ...StorageNotes()]
-        setNotes(updatedNotes)
+        setStorageNotes(updatedNotes)
 
-        return note
-    }
+        setLocalNotes({ payload: note, type: 'add' })
 
-    const save = (id, updatedNote) => {
+        open(note.id, 'edit')
+    }, [])
+
+    const save = useCallback((id, updatedNote) => {
         const updatedNotes = StorageNotes().map(note => note.id === id ? updatedNote : note)
-        setNotes(updatedNotes)
+        setStorageNotes(updatedNotes)
 
-        return { ...updatedNote, id }
-    }
+        setLocalNotes({ payload: updatedNote, type: 'edit' })
+    }, [])
 
-    const remove = (id) => {
+    const remove = useCallback((id) => {
         const updatedNotes = StorageNotes().filter(note => note.id !== id)
-        setNotes(updatedNotes)
-    }
+        setStorageNotes(updatedNotes)
 
-    const value = { getAll, get, add, save, remove }
+        setLocalNotes({ payload: id, type: 'remove' })
+
+        close()
+    }, [])
+
+    const open = useCallback((id, mode) => {
+        const note = get(id)
+
+        setOpenedNote({ ...note, mode })
+    }, [])
+
+    const close = useCallback(() => {
+        setOpenedNote(null)
+    }, [])
+
+
+    const value = { get, add, save, remove, open, close, localNotes, openedNote }
     return (
         <NotesContext.Provider value={value}>
             {children}

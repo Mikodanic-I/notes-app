@@ -1,11 +1,15 @@
 import './NoteDetailsToolbar.css'
 import Icon from "../../core/Icon";
+import { useNotes } from "../../../modules/Notes";
 
-const NoteDetailsToolbar = ({ editable, setEditable, note, save, remove, close }) => {
+const NoteDetailsToolbar = ({ editable, setEditable, note }) => {
+    const { save, remove, close } = useNotes('details')
+
     const saveAction = () => {
         save(note.id, note)
         setEditable(false)
     }
+
     const SaveIcon = <Icon name="icon-save" className="note-details-toolbar__save" onClick={saveAction}/>
     const EditIcon = <Icon name="icon-edit"
                            className="note-details-toolbar__edit"
