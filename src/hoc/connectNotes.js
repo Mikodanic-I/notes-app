@@ -1,16 +1,28 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useReducer, useState} from 'react';
 import {useNotes} from "../modules/Notes";
 
+const localNotesReducer = (state, { type, payload }) => {
+    switch (type) {
+        case 'add':
+            return [payload, ...state]
+        case 'edit':
+            return state.map(note => note.id === payload.id ? payload : note)
+        case 'remove':
+            return state.filter(note => note.id !== payload)
+        default:
+            return payload
+    }
+}
 
 const connectNotes = (ListComponent, DetailsComponent) => {
     return () => {
-        const [localNotes, setLocalNotes] = useState([])
+        const [localNotes, setLocalNotes] = useReducer(localNotesReducer, [])
         const [openedNote, setOpenedNote] = useState(null)
 
         const notes = useNotes()
 
         useEffect(() => {
-            setLocalNotes(notes.getAll())
+            setLocalNotes({ payload: notes.getAll() })
         }, [])
 
         const open = useCallback((id, mode) => {
@@ -28,21 +40,18 @@ const connectNotes = (ListComponent, DetailsComponent) => {
 
             open(addedNote.id, 'edit')
 
-            setLocalNotes([addedNote, ...localNotes ])
+            setLocalNotes({ payload: addedNote, type: 'add' })
         }, [localNotes])
 
         const save = useCallback((id, updatedNote) => {
             const savedNote = notes.save(id, updatedNote)
 
-            const updatedLocalNotes = localNotes.map(note => note.id === id ? savedNote : note)
-            setLocalNotes(updatedLocalNotes)
+            setLocalNotes({ payload: savedNote, type: 'edit' })
         }, [localNotes])
 
         const remove = useCallback((id) => {
             notes.remove(id)
-
-            const updatedLocalNotes = localNotes.filter(note => note.id !== id)
-            setLocalNotes(updatedLocalNotes)
+            setLocalNotes({ payload: id, type: 'remove' })
 
             close()
         }, [localNotes])
