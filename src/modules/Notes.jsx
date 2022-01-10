@@ -14,7 +14,6 @@ const NotesProvider = ({ children }) => {
         localStorage.setItem('notes', JSON.stringify(notes))
     }
 
-    const getAllIds = () => StorageNotes().map(note => note.id)
     const getAll = () => StorageNotes()
 
     const get = (id) => {
@@ -45,7 +44,7 @@ const NotesProvider = ({ children }) => {
         setNotes(updatedNotes)
     }
 
-    const value = { getAllIds, getAll, get, add, save, remove }
+    const value = { getAll, get, add, save, remove }
     return (
         <NotesContext.Provider value={value}>
             {children}
