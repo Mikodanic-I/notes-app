@@ -1,4 +1,4 @@
-import React, {useContext, createContext, useReducer, useState, useEffect, useCallback} from "react";
+import React, {useContext, createContext, useReducer, useState, useEffect, useCallback, useMemo} from "react";
 
 const NotesContext = createContext(null)
 
@@ -18,6 +18,18 @@ const localNotesReducer = (state, { type, payload }) => {
 const NotesProvider = ({ children }) => {
     const [localNotes, setLocalNotes] = useReducer(localNotesReducer, [])
     const [openedNote, setOpenedNote] = useState(null)
+
+    const noteListeners = useMemo(() => ({}), [])
+
+    const addListener = (id, callback) => {
+        noteListeners[id] = callback
+    }
+    const removeListener = (id) => {
+        delete noteListeners[id]
+    }
+    const notifyListener = (id) => {
+        noteListeners[id]()
+    }
 
     useEffect(() => {
         setLocalNotes({ payload: StorageNotes() })
@@ -78,7 +90,7 @@ const NotesProvider = ({ children }) => {
     }, [])
 
 
-    const value = { get, add, save, remove, open, close, localNotes, openedNote }
+    const value = { get, add, save, remove, open, close, localNotes, openedNote, addListener, removeListener, notifyListener }
     return (
         <NotesContext.Provider value={value}>
             {children}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import './NotesList.css'
 import NoteCard from "../../components/notes/NoteCard";
@@ -22,7 +22,7 @@ const AddButton = React.memo(({ add }) => {
 })
 
 const NotesList = React.memo(({ localNotes, open, add }) => {
-    const NoteCards = localNotes.map(note => <NoteCard key={note.id} note={note} open={open} />)
+    const NoteCards = localNotes.map(note => <NoteCard key={note.id} id={note.id} content={note.content} open={open} />)
 
     return (
         <div className="notes-list">
